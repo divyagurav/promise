@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Promise All</h1>
+
+
+
+    <script>
+        const posts = [{ title: 'post1' }];
+
+
+        function getpost() {
+            posts.forEach((item) => {
+                console.log(item.title);
+            })
+        }
+
+        function createpost() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    posts.push({ title: 'post2' });
+                    resolve('post2');
+                }, 3000)
+            })
+        }
+
+        function update() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let date = new Date();
+                    let time = date.getTime();
+                    resolve(time);
+                }, 2000)
+
+            })
+        }
+
+        function deletepost() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (posts.length > 0) {
+                        let popElement = posts.pop();
+                        resolve(popElement);
+                    } else {
+                        reject("Array is Empty!")
+                    }
+                }, 1000)
+            })
+        }
+
+
+        async function func() {
+            let createpost1 = await createpost();
+            console.log(createpost1);
+
+            let update1 = await update();
+            console.log("user last activity time:" + update1);
+
+            let deletepost1 = await deletepost();
+            console.log(deletepost1);
+        }
+
+        func();
+
+    </script>
+
+</body>
+
+</html>
